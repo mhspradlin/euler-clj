@@ -1,0 +1,69 @@
+plugins {
+  id 'dev.clojurephant.clojure' version '0.6.0'
+  id 'application'
+  id 'com.github.johnrengelman.shadow' version '5.0.0'
+  id 'maven-publish'
+}
+
+group = 'net.clojars.mhs'
+version = '0.1.0-SNAPSHOT'
+
+mainClassName = 'mhs.euler'
+
+repositories {
+  mavenCentral()
+  maven {
+    name = 'clojars'
+    url = 'https://repo.clojars.org'
+  }
+}
+
+dependencies {
+  implementation 'org.clojure:clojure:1.10.0'
+
+  testRuntimeOnly 'org.ajoberstar:jovial:0.3.0'
+  
+  implementation 'midje:midje:1.9.10'
+  implementation 'criterium:criterium:0.4.6'
+  implementation 'org.clojure:data.csv:1.0.0'
+
+  devImplementation 'org.clojure:tools.namespace:1.0.0'
+  devImplementation 'cider:cider-nrepl:0.22.4'
+}
+
+/*
+clojureRepl {
+  // nrepl should already be there?
+  middleware 'cider/cider-nrepl'
+}
+*/
+
+tasks.withType(Test) {
+  useJUnitPlatform()
+}
+
+clojure {
+  builds {
+    main {
+      aotAll()
+    }
+  }
+}
+
+publishing {
+  publications {
+    shadow(MavenPublication) { publication ->
+      project.shadow.component(publication)
+    }
+  }
+  repositories {
+    maven {
+      name = 'clojars'
+      url = 'https://repo.clojars.org'
+      credentials {
+        username = System.env['CLOJARS_USER']
+        password = System.env['CLOJARS_PASSWORD']
+      }
+    }
+  }
+}

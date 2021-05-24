@@ -1,14 +1,31 @@
-.gradle
-/build/
+# Clojure
+.cpcache
 
-# Ignore Gradle GUI config
-gradle-app.setting
+# Gradle
+.gradle/
+build/
+gradle.properties
 
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
+# IntelliJ
+*.iml
+*.iws
+*.ipr
+.idea
 
-# Cache of project
-.gradletasknamecache
+# Eclipse
+.settings/
+.project
+.classpath
+bin/
 
-# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
-# gradle/wrapper/gradle-wrapper.properties
+# VS Code
+.vs-code/
+
+# Sublime
+*.sublime-workspace
+
+# Other
+*~
+
+.calva/
+.nrepl-port
